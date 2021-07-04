@@ -9,7 +9,7 @@ all_data <- readRDS(here("Waiting_for_Mark/data/mmg_times.rds"))
 # Remove unverified late time outlier
 all_data <- all_data[-24, ]
 
-# Calculate median time
+# Calculate median lateness time
 median(all_data$diff)
 
 # Calculate median absolute deviation
