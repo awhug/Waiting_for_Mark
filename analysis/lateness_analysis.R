@@ -2,6 +2,7 @@ library(here)
 library(survival)
 library(survminer)
 library(patchwork)
+library(lubridate)
 
 # Import data
 all_data <- readRDS(here("Waiting_for_Mark/data/mmg_times.rds"))
@@ -29,9 +30,9 @@ delay_hist <- ggplot(all_data, aes(x = diff)) +
   labs(y = "Number of Press Conferences", 
        x = "Minutes Late",
        title = "How Late was Mark McGowan?",
-       subtitle = "Bars count the lateness by minute between December 1, 2020 and July 3, 2021") +
-  scale_x_continuous(breaks = seq(0, 33, by = 2),
-                     minor_breaks = seq(0, 32, by = 1))  +
+       subtitle = "Bars count the lateness by minute between December 1, 2020 and July 5, 2021") +
+  scale_x_continuous(breaks = seq(0, 35, by = 2),
+                     minor_breaks = seq(0, 35, by = 1))  +
  theme(plot.title = element_text(face = "bold"),
        panel.grid.minor.y = element_blank())
 
@@ -46,6 +47,8 @@ km_curve <- ggsurvplot(fit = fit,
                        xlab = "Minutes Late",
                        surv.median.line = "hv",
                        break.x.by = 2,
+                       conf.int.fill = "#FF7D71",
+                       xlim = c(0, 35),
                        title = "When will Mark McGowan Begin?",
                        subtitle = "Estimated probability of press conference starting by minute after scheduled start",
                        ggtheme = theme_minimal())
@@ -54,4 +57,12 @@ km_curve <- km_curve$plot + theme(legend.position = "none",
                                   plot.title = element_text(face = "bold"))
 
 # Join up plots using patchwork
-(delay_hist / km_curve) +  plot_layout(heights = c(1, 1.5))
+combined_plot <- (delay_hist / km_curve) +  plot_layout(heights = c(1, 1.5))
+
+# Save
+ggsave(filename = here("Waiting_for_Mark/analysis/lateness_plots.png"),
+       plot = combined_plot,
+       device = "png",
+       height = 5.51,
+       width = 6.25,
+       units = "in")
