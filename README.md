@@ -1,8 +1,8 @@
 # Waiting for Mark
 
-Github repo for analysing differences between scheduled and actual start times for Western Australia Premier Mark McGowan press conferences between December 1 2020 and July 3 2021.
+Github repo for analysing differences between scheduled and actual start times for Western Australia Premier Mark McGowan press conferences between December 1 2020 and July 8 2021.
 
-![Plot of Mark McGowan Press Conference Lateness. Median wait time of 9 minutes plus or minus 5.9 median average deviation](https://raw.githubusercontent.com/awhug/Waiting_for_Mark/main/analysis/lateness_plots.png)
+![Plot of Mark McGowan Press Conference Lateness. Median wait time of 9 minutes plus or minus 6.2 median average deviation](https://raw.githubusercontent.com/awhug/Waiting_for_Mark/main/analysis/lateness_plots.png)
 
 Any additional data or data analysis welcome, just open a PR!
 

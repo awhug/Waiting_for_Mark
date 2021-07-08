@@ -30,7 +30,7 @@ delay_hist <- ggplot(all_data, aes(x = diff)) +
   labs(y = "Number of Press Conferences", 
        x = "Minutes Late",
        title = "How Late was Mark McGowan?",
-       subtitle = "Bars count the lateness by minute between December 1, 2020 and July 5, 2021") +
+       subtitle = "Bars count the lateness by minute between December 1, 2020 and July 8, 2021") +
   scale_x_continuous(breaks = seq(0, 35, by = 2),
                      minor_breaks = seq(0, 35, by = 1))  +
  theme(plot.title = element_text(face = "bold"),
@@ -48,11 +48,12 @@ km_curve <- ggsurvplot(fit = fit,
                        surv.median.line = "hv",
                        break.x.by = 2,
                        conf.int.fill = "#FF7D71",
-                       xlim = c(0, 35),
+                       xlim = c(-1, 35),
                        title = "When will Mark McGowan Begin?",
                        subtitle = "Estimated probability of press conference starting by minute after scheduled start",
                        ggtheme = theme_minimal())
 
+# Remove redundant strata legend
 km_curve <- km_curve$plot + theme(legend.position = "none",
                                   plot.title = element_text(face = "bold"))
 
@@ -60,9 +61,10 @@ km_curve <- km_curve$plot + theme(legend.position = "none",
 combined_plot <- (delay_hist / km_curve) +  plot_layout(heights = c(1, 1.5))
 
 # Save
-ggsave(filename = here("Waiting_for_Mark/analysis/lateness_plots.png"),
+device <- "png"
+ggsave(filename = here(paste0("Waiting_for_Mark/analysis/lateness_plots.", device)),
        plot = combined_plot,
-       device = "png",
+       device = device,
        height = 5.51,
        width = 6.25,
        units = "in")
